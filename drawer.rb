@@ -17,14 +17,13 @@ module ElephantDrawer
         object = Interpreter.interpret(command, opts)
         if object.is_a?(Canvas)
           raise 'You must specify canvas first' if @objects.any? && !@canvas
-
           @canvas ||= object
-          puts @canvas
-          out.write(@canvas.to_s)
         else
-          puts @canvas.draw(object)
-          out.write(@canvas.to_s)
+          @objects << object
+          @canvas.draw(object)
         end
+        puts @canvas
+        out.write(@canvas.to_s)
       end
     end
 
